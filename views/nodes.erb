@@ -1,0 +1,39 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <th>ID</th>
+      <th>Iso Client IP</th>
+      <th>Name</th>
+      <th>Sensu Events</th>
+      <th>Sensu Stashes</th>
+      <th>Sensu Active</th>
+      <th>Chef Last Ohai</th>
+      <th>EC2 Running</th>
+      <th>New Relic Health</th>
+    </thead>
+    <tbody>
+      <% @nodes.each do |node| %>
+        <tr>
+          <td><a href="nodes/<%= node.id %>"><%= node.id %></a></td>
+          <td><%= node.iso_client_ip %></td>
+          <td>Sensu: <%= node.sensu_client_name %></br>
+          Chef: <%= node.chef_name %></br>
+          Ec2: <%= node.ec2_name %></br>
+          Xen: <%= node.xen_name %></br>
+          NR: <%= node.newrelic_name %></td>
+
+          <td><%= node.sensu_events_count %></td>
+          <td><%= node.sensu_stashes_count %></td>
+          <% sensu_time=time_since(node.sensu_timestamp.to_i) %>
+          <td><%= sensu_time %></td>
+          <% chef_time=time_since(node.chef_last_ohai.to_i) %>
+          <td><%= chef_time %></td>
+          <% ec2_status=ec2_running(node.ec2_state) %>
+          <td><%= ec2_status %></td>
+          <% nr_status=nr_health(node.newrelic_health_status) %>
+          <td><%= nr_status %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

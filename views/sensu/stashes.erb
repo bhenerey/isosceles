@@ -1,0 +1,30 @@
+<div class="table-responsive">
+  <h1>Sensu Stashes </h1>
+  <table class="table table-striped">
+    <th>ID</th><th>IP</th><th>Name</th><th>Stash Path</th><th>Actions</th>
+    <% @nodes.each do |n| %>
+      <% @stashes.each do |s| %>
+        <% if n.id == s.node_id %>
+          <tr>
+            <td><a href="/nodes/<%= n.id %>"><%= n.id %></a></td>
+            <td><%= n.iso_client_ip %></td>
+            <td>Sensu: <%= n.sensu_client_name %></br>
+              Chef: <%= n.chef_name %></br>
+              Ec2: <%= n.ec2_name %></br>
+              NR: <%= n.newrelic_name %>
+            </td>
+            <td><%= s.path %></td>
+            <td>
+              <form action="/api/sensu/stashes" method="post">
+                <input type="hidden" name="sensu_method" value="delete">
+                <input type="hidden" name="id" value="<%=s.id %>">
+                <input type="hidden" name="stashpath" value="silence/<%=s.path %>">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+  </table>
+</div>

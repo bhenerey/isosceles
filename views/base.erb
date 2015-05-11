@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>isosceles</title>
+    <link rel='stylesheet' type='text/css' href='/css/bootstrap.min.css'>
+    <link rel='stylesheet' type='text/css' href='/css/styles.css'>
+    <link rel='stylesheet' type='text/css' href='/css/dashboard.css'>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src='/js/main.js'></script>
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/nodes">Isosceles</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li><a href="/nodes">Home</a></li>
+        <%# <li><a href="/apps">Applications</a></li> %>
+        <%# <li><a href="/instances">Instances</a></li> %>
+        <li><a href="/nodes">Nodes</a></li>
+        <%# <li><a href="/environments">Environments</a></li> %>
+        <li><a href="/sensu/events">Sensu Events</a></li>
+        <li><a href="/sensu/stashes">Sensu Stashes</a></li>
+      </ul>
+    </div>
+
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <%= yield %>
+    </div>
+  </body>
+</html>

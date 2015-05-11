@@ -1,0 +1,22 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Private IP</th>
+        <th>Environment</th>
+        <th>Availibility Zone</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% @instances.each do |instance| %>
+          <tr>
+            <td><%= instance[:name] %></td>
+            <td><%= instance[:environment].empty? ? 'No Environment' : instance[:environment] %></td>
+            <td><%= instance[:private_ip].empty? ? 'No Private IP' : instance[:private_ip] %></td>
+            <td><%= instance[:az] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+</div>

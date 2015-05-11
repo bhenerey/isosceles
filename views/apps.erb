@@ -1,0 +1,15 @@
+<table class='table table-striped'>
+  <th>Application Name</th>
+  <th>Instance Count</th>
+  <% @aws_apps.each do |app| %>
+    <tr>
+      <td>
+        <a href=<%= "/app/#{app[:name]}" %>>
+          <%= app[:name] %></td>  
+        </a>
+      <td>
+        <%= app[:nodes].length %>
+      </td>
+    </tr>
+  <% end %>
+</table>

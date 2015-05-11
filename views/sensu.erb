@@ -1,0 +1,73 @@
+<div class="table-responsive">
+  <h1>Sensu Events </h1>
+  <table class="table table-striped">
+    <th>Env</th><th>App</th><th>Node</th><th>Output</th><th>Status</th><th>Handlers</th><th>Occurrences</th><th>Client</th><th>Check</th><th>Resolve</th><th>Stash</th><th>Delete Client</th>
+    <% @nodes.each do |n| %>
+      <% @events.each do |e| %>
+        <% if n.id == e.node_id %>
+          <tr>
+            <td><%= n.chef_env %></td>
+            <td><%= n.chef_apps %></td>
+            <td><a href="/nodes/<%= n.ec2_id %>"><%= n.ec2_id %></a></td>
+            <td><%= e.output %></td>
+            <td><%= e.status %></td>
+            <td><%= e.handlers %></td>
+            <td><%= e.occurrences %></td>
+            <td><%= e.client %></td>
+            <td><%= e.check %></td>
+            <td>
+              <form action="/api/sensu/events" method="post">
+                <input type="hidden" name="sensu_method" value="delete">
+                <input type="hidden" name="client" value="<%=e.client %>">
+                <input type="hidden" name="check" value="<%=e.check %>">
+                <input type="hidden" name="id" value="<%=e.id %>">
+                <button type="submit" class="btn btn-success">Resolve</button>
+              </form>
+            </td>
+            <td>
+              <form action="/api/sensu/stashes" method="post">
+                <input type="hidden" name="sensu_method" value="post">
+                <input type="hidden" name="id" value="<%=e.id %>">
+                <input type="hidden" name="client" value="<%=e.client %>">
+                <input type="hidden" name="check" value="<%=e.check %>">
+                <button type="submit" class="btn btn-warning">Stash</button>
+              </form>
+            </td>
+            <td>
+              <form action="/api/sensu/clients" method="post">
+                <input type="hidden" name="sensu_method" value="delete">
+                <input type="hidden" name="client" value="<%=e.client %>">
+                <input type="hidden" name="id" value="<%=n.id %>">
+                <button type="submit" class="btn btn-danger" >Delete Client</button>
+              </form>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>         
+    <% end %>         
+  </table> 
+  <h1>Sensu Stashes </h1>
+  <table class="table table-striped">
+    <th>Env</th><th>App</th><th>Node</th><th>Stash Path</th><th>Actions</th>
+    <% @nodes.each do |n| %>
+      <% @stashes.each do |s| %>
+        <% if n.id == s.node_id %>
+          <tr>
+            <td><%= n.chef_env %></td>
+            <td><%= n.chef_apps %></td>
+            <td><a href="/nodes/<%= n.ec2_id %>"><%= n.ec2_id %></a></td>
+            <td><%= s.path %></td>
+            <td>
+              <form action="/api/sensu/stashes" method="post">
+                <input type="hidden" name="sensu_method" value="delete">
+                <input type="hidden" name="id" value="<%=s.id %>">
+                <input type="hidden" name="stashpath" value="silence/<%=s.path %>">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>         
+    <% end %>         
+  </table> 
+</div>

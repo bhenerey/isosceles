@@ -1,0 +1,36 @@
+<h1 class="page-header">Dashboard</h1>
+<div class="row placeholders">
+  <div class="col-xs-6 col-sm-3 placeholder">
+    <span class="counter"><%= @environments.length %></span>
+    <h4>
+      <a href="/environments">
+        Environments
+      </a>
+    </h4>
+  </div>
+  <div class="col-xs-6 col-sm-3 placeholder">
+    <span class="counter">
+      <%= @aws_apps.length %>
+    </span>
+    <h4>
+      <a href="/apps">
+        Applications
+      </a>
+      </h4>
+  </div>
+  <div class="col-xs-6 col-sm-3 placeholder">
+    <span class="counter">
+      <%= @nodes.length %>
+    </span>
+    <h4>
+      <a href="/nodes">
+        Running Nodes
+      </a>
+      </h4>
+  </div>
+  <div class="col-xs-6 col-sm-3 placeholder">
+    <span class="counter"><%= @zones.length %></span>
+    <h4>Availability Zones</h4>
+  </div>
+</div>
+<script src="/js/dash.js"></script>

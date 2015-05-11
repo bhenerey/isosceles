@@ -1,0 +1,43 @@
+<div class="table-responsive">
+  <h1>Sensu Events </h1>
+  <table class="table table-striped">
+    <th>Actions</th>
+    <th>NodeID</th><th>Client</th><th>Check</th><th>Status</th>
+    <th>Occurrences</th>
+    <th>Output</th>
+    <% @nodes.each do |n| %>
+      <% @events.each do |e| %>
+        <% if n.id == e.node_id %>
+          <tr>
+            <td>
+              <form action="/api/sensu/events" method="post">
+                <input type="hidden" name="sensu_method" value="delete">
+                <input type="hidden" name="client" value="<%=e.client %>">
+                <input type="hidden" name="check" value="<%=e.check %>">
+                <input type="hidden" name="id" value="<%=e.id %>">
+                <button type="submit" class="btn btn-success">Resolve</button>
+              </form>
+            </br>
+              <form action="/api/sensu/stashes" method="post">
+                <input type="hidden" name="sensu_method" value="post">
+                <input type="hidden" name="id" value="<%=e.id %>">
+                <input type="hidden" name="client" value="<%=e.client %>">
+                <input type="hidden" name="check" value="<%=e.check %>">
+                <button type="submit" class="btn btn-warning">Stash</button>
+              </form>
+            </td>
+            <td><a href="/nodes/<%= n.id %>"><%= n.id %></a></td>
+            <td><%= e.client %></td>
+            <td><%= e.check %></td>
+
+            <td><%= e.status %></td>
+            <td><%= e.occurrences %></td>
+
+            <td><%= e.output %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+  </table>
+
+</div>

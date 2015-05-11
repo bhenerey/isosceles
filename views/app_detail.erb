@@ -1,0 +1,11 @@
+<h2><%= params[:name] %></h2>
+  <table class="table table-responsive table-striped">
+    <% @nodes.each do |node| %>
+      <tr>
+      <td class='node-name'><%= node.ec2_name %>
+      <div class='node-info'>
+        <img src="http://graphite.staging.opinionlab.com/render/?width=586&height=308&_salt=1398802444.468&target=<%= node.ec2_name %>.vmstat.cpu.user&png"> 
+      </div>
+    </td>
+    </tr>
+  <% end %>

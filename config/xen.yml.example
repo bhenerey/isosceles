@@ -1,0 +1,13 @@
+---
+  staging1:
+    provider: "XenServer"
+    xenserver_name: "XEN_SERVER1"
+  staging2:
+    provider: "XenServer"
+    xenserver_name: "XEN_SERVER2"
+  # prod1:
+  #   provider: "XenServer"
+  #   xenserver_name: "XEN_SERVER3"
+  # prod2:
+  #   provider: "XenServer"
+  #   xenserver_name: "XEN_SERVER4"

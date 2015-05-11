@@ -1,0 +1,57 @@
+<div class="table-responsive">
+  <h1>Node ID: <%= params[:id] %> </h1>
+  <h2>All Node Details</h2>
+  <table class="table table-striped">
+    <% @node.each do |n| %>
+    <%  n.attributes.each_pair do |k,v| %>
+     <tr><td><%= k %></td><td><%= v %></td></tr>
+    <%  end %>
+    <% end %>
+  </table>
+
+
+  <h2>Change Events</h2>
+  <table class="table table-striped">
+    <th>Event Date</th><th>Event Message</th>
+    <% @events.each do |e| %>
+      <tr><td><%= e.event_date%></td><td><%= e.event_message%></td></tr>
+    <% end %>
+  </table>
+  <h2>Sensu Events</h2>
+  <table class="table table-striped">
+    <th>Check</th><th>Output</th><th>Status</th><th>Handlers</th><th>Occurrences</th><th>Updated_At</th>
+    <% @sensu_events.each do |e| %>
+      <tr>
+        <td><%= e.check %></td>
+        <td><%= e.output %></td>
+        <td><%= e.status %></td>
+        <td><%= e.handlers %></td>
+        <td><%= e.occurrences %></td>
+        <td><%= e.updated_at %></td></tr>
+    <% end %>
+  </table>
+  <h2>Sensu Stashes</h2>
+  <table class="table table-striped">
+    <th>Path</th><th>Created_At</th><th>Updated_At</th>
+    <% @sensu_stashes.each do |s| %>
+      <tr>
+        <td><%= s.path %></td>
+        <td><%= s.created_at %></td>
+        <td><%= s.updated_at %></td></tr>
+    <% end %>
+  </table>
+  <h2>Sensu Checks</h2>
+  <table class="table table-striped">
+    <th>Name</th><th>Interval</th><th>Timeout</th><th>Handlers</th><th>Subscribers</th><th>Type</th>
+    <% @sensu_checks.each do |c| %>
+      <tr>
+        <td><%= c.name %></td>
+        <td><%= c.interval %></td>
+        <td><%= c.timeout %></td>
+        <td><%= c.handlers %></td>
+        <td><%= c.subscribers %></td>
+        <td><%= c.check_type %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
