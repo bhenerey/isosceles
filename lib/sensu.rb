@@ -149,13 +149,13 @@ class SensuInfo
   def self.update_checks
     # clear all existing alerts. Sensu is the source of truth
     delete_result = SensuCheck.delete_all
+    Node.find_each { |n| Node.reset_counters(n.id, :sensu_checks)}
 
     begin
       sensu_check_data=SensuInfo.get_checks
     rescue
       return false
     end
-
 
     # We need to know all the possible subscribers
     # We also need a hash of all the checks to create sensu_checks records later
@@ -212,6 +212,7 @@ class SensuInfo
   def self.update_events
     # clear all existing alerts. Sensu is the source of truth
     delete_result = SensuEvent.delete_all
+    Node.find_each { |n| Node.reset_counters(n.id, :sensu_events)}
 
     # get fresh event info from Sensu itself
     sensu_event_data=SensuInfo.get_events
@@ -268,9 +269,14 @@ class SensuInfo
     return nil #success
   end
 
+  def self.delete_all_stashes
+
+  end
+
   def self.update_stashes
     # clear all existing alerts. Sensu is the source of truth
-    delete_result = SensuStash.delete_all
+    delete_result = SensuInfo.delete_all_stashes
+    Node.find_each { |n| Node.reset_counters(n.id, :sensu_stashes)}
 
     # get fresh event info from Sensu itself
     sensu_stash_data=SensuInfo.get_stashes

@@ -26,31 +26,31 @@ ActiveRecord::Schema.define(version: 20150427152231) do
   end
 
   create_table "nodes", force: :cascade do |t|
-    t.string   "ec2_id",                     limit: 255
-    t.string   "ec2_name",                   limit: 255
-    t.string   "ec2_private_ip",             limit: 255
-    t.string   "ec2_availability_zone",      limit: 255
-    t.string   "ec2_state",                  limit: 255
-    t.string   "aws_tag_environment",        limit: 255
-    t.string   "aws_tag_apps",               limit: 255
-    t.string   "chef_runlist",               limit: 255
-    t.string   "sensu_client_name",          limit: 255
-    t.string   "sensu_client_subscriptions", limit: 255
+    t.string   "ec2_id"
+    t.string   "ec2_name"
+    t.string   "ec2_private_ip"
+    t.string   "ec2_availability_zone"
+    t.string   "ec2_state"
+    t.string   "aws_tag_environment"
+    t.string   "aws_tag_apps"
+    t.string   "chef_runlist"
+    t.string   "sensu_client_name"
+    t.string   "sensu_client_subscriptions"
     t.text     "sensu_checks"
-    t.integer  "events_count",                           default: 0
-    t.integer  "sensu_events_count",                     default: 0
-    t.integer  "sensu_stashes_count",                    default: 0
+    t.integer  "events_count",               default: 0
+    t.integer  "sensu_events_count",         default: 0
+    t.integer  "sensu_stashes_count",        default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "iso_client_ip"
     t.text     "sensu_client_address"
     t.integer  "sensu_checks_count"
-    t.string   "chef_bootstrapped",          limit: 255
-    t.string   "chef_name",                  limit: 255
-    t.string   "chef_env",                   limit: 255
-    t.string   "chef_uptime",                limit: 255, default: "Unknown"
-    t.string   "chef_version",               limit: 255, default: "Unknown"
-    t.string   "chef_platform",              limit: 255, default: "Unknown"
+    t.string   "chef_bootstrapped"
+    t.string   "chef_name"
+    t.string   "chef_env"
+    t.string   "chef_uptime",                default: "Unknown"
+    t.string   "chef_version",               default: "Unknown"
+    t.string   "chef_platform",              default: "Unknown"
     t.integer  "chef_last_ohai"
     t.integer  "newrelic_id"
     t.text     "newrelic_name"

@@ -12,4 +12,13 @@ class Isosceles < Sinatra::Base
     end
   end
 
+  put '/api/aws/cleanup' do
+    response=AwsInfo.cleanup_old
+    if response.nil?
+      status 202
+    else
+      status 500
+    end
+  end
+
 end
