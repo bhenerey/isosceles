@@ -54,6 +54,8 @@ module Sinatra
           return "<div style=\"color: #ffffff; background-color: #ff0000\">stopped</div>"
         when "running"
           return "running"
+        when "terminated"
+          return "terminated"
         else
           return "N/A"
         end

@@ -34,7 +34,7 @@ class AwsInfo
     begin
 
       # We need to get instances from multiple regions
-      region_list=['us-east-1', "us-west-2", "us-west-1"]
+      region_list=['us-east-1', "us-west-2"]
       region_list.each do |region|
 
         puts "Fetching instance data from #{region}"
@@ -55,7 +55,7 @@ class AwsInfo
           server_hash[:name]        = server.tags["Name"]
           server_hash[:environment] = server.tags["environment"] ||= "no tag yet"
           server_hash[:bootstrapped] = server.tags["bootstrapped"]
-          server_hash[:apps]        = server.tags["apps"] ||= "no apps yet"
+          server_hash[:apps]        = server.tags["role"] ||= "no apps yet"
           server_hash[:id]          = server.id.to_s
           server_hash[:private_ip]  = server.private_ip_address.to_s
           server_hash[:flavor]      = server.flavor_id.to_s
@@ -101,9 +101,46 @@ class AwsInfo
         node_data.save
 
       end
+
+      resp = AwsInfo.cleanup_old(ec2_server_data)
+
       return nil
     end
 
+  end
+
+  def self.cleanup_old(ec2_server_data)
+
+    #Get all the ec2 instances from AWS
+    # ec2_server_data=AwsInfo.get_instances
+    if ec2_server_data.nil?
+      return false
+    else
+      servers=[]
+      ec2_server_data.each do |server|
+        servers << server[:id]
+      end
+
+      #Get all the nodes from the database
+      node_data = Node.all
+
+      node_data.each do |node|
+        if servers.include?(node.ec2_id)
+          puts "servers includes #{node.ec2_id}"
+        else
+          puts "servers DOES NOT include #{node.ec2_id}, #{node.aws_tag_apps}, #{node.aws_tag_environment}, #{node.ec2_state}"
+
+          node_data = Node.find_or_initialize_by(ec2_id: node.ec2_id)
+          node_data.update_attributes(
+            ec2_state: "terminated" #server[:ec2_state]
+          )
+          node_data.save
+
+        end
+
+      end
+      return nil
+    end
   end
 
 end
