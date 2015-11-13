@@ -9,7 +9,7 @@ class Isosceles < Sinatra::Base
   end
 
   get '/nodes' do
-    @nodes = Nodes.order("aws_tag_environment, aws_tag_apps, sensu_events_count")
+    @nodes = Nodes.where.not(ec2_state: "terminated").order("aws_tag_environment, aws_tag_apps, sensu_events_count")
     # @nodes = Nodes.where.not(ec2_state: "terminated").order("aws_tag_environment, aws_tag_apps, sensu_events_count")
     erb :nodes, :layout => :base do
       erb :nodes

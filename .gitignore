@@ -48,3 +48,4 @@ bin/
 vendor/
 config/xen.yml
 .rbenv-gemsets
+config/database.yml
