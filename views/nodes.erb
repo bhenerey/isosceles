@@ -1,47 +1,37 @@
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="scripts/jquery.js"><\/script>')</script>
+<input class="search selectable" type="search" placeholder="Search All" data-column="all">
+<input class="search" type="search" placeholder="Environment" data-column="2">
+<input class="search" type="search" placeholder="Role" data-column="3">
+<!-- targeted by the "filter_reset" option -->
+<button type="button" class="reset">Reset Search</button>
+<br>
+<br>
 
-<div class="table-responsive">
 
-  <input id="searchInput" placeholder="Type To Filter">
-  <br/>
-
-
-  <table class="table table-striped">
-    <thead>
+<table class="tablesorter tablesorter-bootstrap table table-bordered table-striped">
+  <thead>
+    <tr role=role class="tablesorter-headerRow">
       <th>ID</th>
       <th>Iso Client IP</th>
       <th>Environment</th>
       <th>Role</th>
-      <th>Sensu Events/Stashes</th>
-      <th>Sensu Active</th>
-      <th>EC2 Running</th>
-    </thead>
-    <tbody id="fbody">
-      <% @nodes.each do |node| %>
-        <tr>
-          <td><a href="nodes/<%= node.id %>"><%= node.id %></a></td>
-          <td><%= node.iso_client_ip %></td>
-          <td><%= node.aws_tag_environment %></td>
-          <td><%= node.aws_tag_apps %></td>
-          <td><%= node.sensu_events_count %>, <%= node.sensu_stashes_count %></td>
-          <% sensu_time=time_since(node.sensu_timestamp.to_i) %>
-          <td><%= sensu_time %></td>
-          <% ec2_status=ec2_running(node.ec2_state) %>
-          <td><%= ec2_status %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-<script>
-$("#searchInput").keyup(function () {
-    var rows = $("#fbody").find("tr").hide();
-    if (this.value.length) {
-        var data = this.value.split(" ");
-        $.each(data, function (i, v) {
-            rows.filter(":contains('" + v + "')").show();
-        });
-    } else rows.show();
-});
-</script>
+      <th>Events</th>
+      <th>Stashes</th>
+      <th>Sensu Alive</th>
+    </tr>
+  </thead>
+  <tbody id="fbody">
+    <% @nodes.each do |node| %>
+      <tr role="row">
+        <td><a href="nodes/<%= node.id %>"><%= node.id %></a></td>
+        <td><%= node.iso_client_ip %></td>
+        <td><%= node.aws_tag_environment %></td>
+        <td><%= node.aws_tag_apps %></td>
+        <td><%= node.sensu_events_count %></td>
+        <td><%= node.sensu_stashes_count %></td>
+        <% sensu_time=time_since(node.sensu_timestamp.to_i) %>
+        <td><%= sensu_time %></td>
+        <% ec2_status=ec2_running(node.ec2_state) %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
