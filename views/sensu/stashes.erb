@@ -1,18 +1,29 @@
 <div class="table-responsive">
   <h1>Sensu Stashes </h1>
   <table class="table table-striped">
-    <th>ID</th><th>IP</th><th>Name</th><th>Stash Path</th><th>Actions</th>
+    <!-- <tr>
+      <th>Actions</th>
+      <th>NodeID</th><th>Client</th><th>Check</th><th>Status</th>
+      <th>Occurrences</th>
+      <th>Output</th>
+    </tr> -->
+    <tr>
+      <th>Instance</th>
+      <th>Private IP</th>
+      <th>Environment</th>
+      <th>Role</th>
+      <th>Stash Path-DEBUG</th>
+      <th>Actions</th>
+    </tr>
+
     <% @nodes.each do |n| %>
       <% @stashes.each do |s| %>
         <% if n.id == s.node_id %>
           <tr>
-            <td><a href="/nodes/<%= n.id %>"><%= n.id %></a></td>
+            <td><a href="/nodes/<%= n.id %>"><%= n.ec2_id %></a></td>
             <td><%= n.iso_client_ip %></td>
-            <td>Sensu: <%= n.sensu_client_name %></br>
-              Chef: <%= n.chef_name %></br>
-              Ec2: <%= n.ec2_name %></br>
-              NR: <%= n.newrelic_name %>
-            </td>
+            <td><%= n.aws_tag_environment %></td>
+            <td><%= n.aws_tag_apps %></td>
             <td><%= s.path %></td>
             <td>
               <form action="/api/sensu/stashes" method="post">
@@ -27,4 +38,5 @@
       <% end %>
     <% end %>
   </table>
+
 </div>

@@ -5,14 +5,14 @@
     <title>isosceles</title>
 
     <!-- Custom styles for this template -->
-    <link href="navbar-fixed-top.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/navbar-fixed-top.css">
     <!-- Bootstrap stylesheet -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <!-- bootstrap widget theme -->
     <link rel="stylesheet" href="/css/theme.bootstrap.css">
 
     <!-- hack to fix top nav var overlap -->
-    <link href="/css/navbar-overlap-hackfix.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/navbar-overlap-hackfix.css">
 
     <!-- include jquery -->
     <script src="/js/jquery.min.js"></script>
@@ -27,6 +27,17 @@
     <!-- pager plugin -->
     <link rel="stylesheet" href="/css/jquery.tablesorter.pager.css">
     <script src="/js/jquery.tablesorter.pager.js"></script>
+
+    <script>
+      var $table = $('table').DataTable( {
+          ajax: "data.json"
+      } );
+
+      setInterval( function () {
+          $table.ajax.reload();
+      }, 30000 );
+
+    </script>
 
     <script>
 
@@ -75,6 +86,8 @@
 
 
 
+
+
   </head>
 
   <body>
@@ -91,7 +104,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">EC2</a></li>
+            <li class="active"><a href="/nodes">EC2</a></li>
             <li><a href="/sensu/events">Events</a></li>
             <li><a href="/sensu/stashes">Stashes</a></li>
 

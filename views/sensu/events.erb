@@ -1,10 +1,26 @@
-<div class="table-responsive">
-  <h1>Sensu Events </h1>
-  <table class="table table-striped">
-    <th>Actions</th>
-    <th>NodeID</th><th>Client</th><th>Check</th><th>Status</th>
-    <th>Occurrences</th>
-    <th>Output</th>
+<input class="search selectable" type="search" placeholder="Search All" data-column="all">
+<input class="search" type="search" placeholder="Environment" data-column="2">
+<input class="search" type="search" placeholder="Role" data-column="3">
+<!-- targeted by the "filter_reset" option -->
+<button type="button" class="reset">Reset Search</button>
+<br>
+<br>
+
+
+<table class="tablesorter tablesorter-bootstrap table table-bordered table-striped">
+  <thead>
+    <tr role=role class="tablesorter-headerRow">
+      <th>Resolve</th>
+      <th>NodeID</th>
+      <th>Client</th>
+      <th>Check</th>
+      <th>Status</th>
+      <th>Occurrences</th>
+      <th>Output</th>
+      <th>Resolve</th>
+    </tr>
+  </thead>
+  <tbody id="fbody">
     <% @nodes.each do |n| %>
       <% @events.each do |e| %>
         <% if n.id == e.node_id %>
@@ -17,14 +33,6 @@
                 <input type="hidden" name="id" value="<%=e.id %>">
                 <button type="submit" class="btn btn-success">Resolve</button>
               </form>
-            </br>
-              <form action="/api/sensu/stashes" method="post">
-                <input type="hidden" name="sensu_method" value="post">
-                <input type="hidden" name="id" value="<%=e.id %>">
-                <input type="hidden" name="client" value="<%=e.client %>">
-                <input type="hidden" name="check" value="<%=e.check %>">
-                <button type="submit" class="btn btn-warning">Stash</button>
-              </form>
             </td>
             <td><a href="/nodes/<%= n.id %>"><%= n.id %></a></td>
             <td><%= e.client %></td>
@@ -34,10 +42,22 @@
             <td><%= e.occurrences %></td>
 
             <td><%= e.output %></td>
+            <td>
+              <form action="/api/sensu/stashes" method="post">
+                <input type="hidden" name="sensu_method" value="post">
+                <input type="hidden" name="id" value="<%=e.id %>">
+                <input type="hidden" name="client" value="<%=e.client %>">
+                <input type="hidden" name="check" value="<%=e.check %>">
+                <button type="submit" class="btn btn-warning">Stash</button>
+              </form>
+            </td>
           </tr>
         <% end %>
       <% end %>
     <% end %>
-  </table>
+  </tbody>
+</table>
+
+
 
 </div>

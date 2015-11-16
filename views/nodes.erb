@@ -10,8 +10,8 @@
 <table class="tablesorter tablesorter-bootstrap table table-bordered table-striped">
   <thead>
     <tr role=role class="tablesorter-headerRow">
-      <th>ID</th>
-      <th>Iso Client IP</th>
+      <th>Instance</th>
+      <th>Private IP</th>
       <th>Environment</th>
       <th>Role</th>
       <th>Events</th>
@@ -22,7 +22,7 @@
   <tbody id="fbody">
     <% @nodes.each do |node| %>
       <tr role="row">
-        <td><a href="nodes/<%= node.id %>"><%= node.id %></a></td>
+        <td><a href="nodes/<%= node.id %>"><%= node.ec2_id %></a></td>
         <td><%= node.iso_client_ip %></td>
         <td><%= node.aws_tag_environment %></td>
         <td><%= node.aws_tag_apps %></td>
