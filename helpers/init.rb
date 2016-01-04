@@ -61,6 +61,24 @@ module Sinatra
         end
       end
 
+      def check_aws_age(aws_created_at)
+
+        created_time = aws_created_at.to_datetime
+        time_now = Time.now.to_i
+        time_since = ((created_time.to_i - time_now)/(60)).abs #minutes
+
+        time_diff=""
+
+        case time_since
+        when 0..43200
+          time_diff= "#{time_since/60/24} days"
+        else
+          time_diff= "<div style=\"color: #ffffff; background-color: #ff0000\">#{time_since/60/24} days</div>"
+        end
+
+        return time_diff
+      end
+
       def nr_health(status)
         case status
         when "green"

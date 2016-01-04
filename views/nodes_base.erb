@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="/css/jquery.tablesorter.pager.css">
     <script src="/js/jquery.tablesorter.pager.js"></script>
 
-    <script>
+    <!-- <script>
       var $table = $('table').DataTable( {
           ajax: "data.json"
       } );
@@ -37,7 +37,7 @@
           $table.ajax.reload();
       }, 30000 );
 
-    </script>
+    </script> -->
 
     <script>
 
@@ -56,6 +56,8 @@
             filter_reset: '.reset'
           }
         });
+
+
 
         // Target the $('.search') input using built in functioning
         // this binds to the search using "search" and "keyup"
@@ -80,9 +82,25 @@
           $.tablesorter.filter.bindSearch( $table, $('.search'), false );
         });
 
+
+        // setInterval( function () {
+        //     // $(table).trigger("update")
+        //     console.log("begin update")
+        //     // $table.trigger("update")
+        //     // $table.ajax.reload();
+        //     $(table).trigger("update")
+        // }, 30000 );
+
+
       });
 
     </script>
+    <!-- <script>
+      setInterval( function () {
+          $(table).trigger("update")
+      }, 30000 );
+
+    </script> -->
 
 
 

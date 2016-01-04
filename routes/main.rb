@@ -11,7 +11,7 @@ class Isosceles < Sinatra::Base
   get '/nodes' do
     @nodes = Nodes.where.not(ec2_state: "terminated").order("aws_tag_environment, aws_tag_apps, sensu_events_count")
     # @nodes = Nodes.where.not(ec2_state: "terminated").order("aws_tag_environment, aws_tag_apps, sensu_events_count")
-    erb :nodes, :layout => :base do
+    erb :nodes, :layout => :nodes_base do
       erb :nodes
     end
   end
@@ -25,7 +25,7 @@ class Isosceles < Sinatra::Base
       @sensu_checks = SensuCheck.where(node_id: n.id).order("created_at DESC")
       puts @sensu_checks
     end
-    erb :"nodes/index", :layout => :base do
+    erb :"nodes/index", :layout => :nodes_base do
         erb :"nodes/index"
     end
   end
@@ -34,7 +34,7 @@ class Isosceles < Sinatra::Base
     @nodes = Node.where("sensu_events_count > ?", 0).order("chef_env ASC, sensu_client_name ASC");
     @events = SensuEvent.all
     @stashes = SensuStash.all
-    erb :"sensu/events", :layout => :base do
+    erb :"sensu/events", :layout => :events_base do
         erb :"sensu/events"
     end
   end
@@ -43,7 +43,7 @@ class Isosceles < Sinatra::Base
     @nodes = Node.where("sensu_stashes_count > ?", 0).order("chef_env ASC, sensu_client_name ASC");
     @events = SensuEvent.all
     @stashes = SensuStash.all
-    erb :"sensu/stashes", :layout => :base do
+    erb :"sensu/stashes", :layout => :stashes_base do
         erb :"sensu/stashes"
     end
 

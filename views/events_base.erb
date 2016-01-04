@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>isosceles</title>
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="/css/navbar-fixed-top.css">
+    <!-- Bootstrap stylesheet -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- bootstrap widget theme -->
+    <link rel="stylesheet" href="/css/theme.bootstrap.css">
+
+    <!-- hack to fix top nav var overlap -->
+    <link rel="stylesheet" href="/css/navbar-overlap-hackfix.css">
+
+    <!-- include jquery -->
+    <script src="/js/jquery.min.js"></script>
+    <!-- include bootstrap -->
+    <script src="/js/bootstrap.min.js"></script>
+
+    <!-- tablesorter plugin -->
+    <script src="/js/jquery.tablesorter.js"></script>
+    <!-- tablesorter widget file - loaded after the plugin -->
+    <script src="/js/jquery.tablesorter.widgets.js"></script>
+
+    <!-- pager plugin -->
+    <link rel="stylesheet" href="/css/jquery.tablesorter.pager.css">
+    <script src="/js/jquery.tablesorter.pager.js"></script>
+
+    <!-- <script>
+      var $table = $('table').DataTable( {
+          ajax: "data.json"
+      } );
+
+      setInterval( function () {
+          $table.ajax.reload();
+      }, 30000 );
+
+    </script> -->
+
+    <script>
+
+      $(function() {
+
+        var $table = $('table').tablesorter({
+          theme: 'blue',
+          widgets: ["zebra", "filter"],
+          widgetOptions : {
+            // use the filter_external option OR use bindSearch function (below)
+            // to bind external filters.
+            // filter_external : '.search',
+
+            filter_columnFilters: false,
+            filter_saveFilters : true,
+            filter_reset: '.reset'
+          }
+        });
+
+
+
+        // Target the $('.search') input using built in functioning
+        // this binds to the search using "search" and "keyup"
+        // Allows using filter_liveSearch or delayed search &
+        // pressing escape to cancel the search
+        $.tablesorter.filter.bindSearch( $table, $('.search') );
+
+        // Basic search binding, alternate to the above
+        // bind to search - pressing enter and clicking on "x" to clear (Webkit)
+        // keyup allows dynamic searching
+        /*
+        $(".search").bind('search keyup', function (e) {
+          $('table').trigger('search', [ [this.value] ]);
+        });
+        */
+
+        // Allow changing an input from one column (any column) to another
+        $('select').change(function(){
+          // modify the search input data-column value (swap "0" or "all in this demo)
+          $('.selectable').attr( 'data-column', $(this).val() );
+          // update external search inputs
+          $.tablesorter.filter.bindSearch( $table, $('.search'), false );
+        });
+
+
+        // setInterval( function () {
+        //     // $(table).trigger("update")
+        //     console.log("begin update")
+        //     // $table.trigger("update")
+        //     // $table.ajax.reload();
+        //     $(table).trigger("update")
+        // }, 30000 );
+
+
+      });
+
+    </script>
+    <!-- <script>
+      setInterval( function () {
+          $(table).trigger("update")
+      }, 30000 );
+
+    </script> -->
+
+
+
+
+
+  </head>
+
+  <body>
+     <div><nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Isosceles</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/nodes">EC2</a></li>
+            <li class="active"><a href="/sensu/events">Events</a></li>
+            <li><a href="/sensu/stashes">Stashes</a></li>
+
+          </ul>
+          <ul class="nav navbar-nav navbar-right active">
+            <li class="dropdown active">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Other Tools <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-header">Internal</li>
+                <li><a href="../navbar/">Kibana</a></li>
+                <li><a href="../navbar-static-top/">Uchiwa</a></li>
+                <li><a href="../navbar-static-top/">Errbit</a></li>
+                <li><a href="../navbar-static-top/">Jenkins</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">3rd Party</li>
+                <li><a href="#">Librato</a></li>
+                <li><a href="#">Pagerduty</a></li>
+                <li><a href="#">StatusPage</a></li>
+                <li><a href="#">Pingdom</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div><!-- /.container -->
+    </nav></div>
+
+    <div class="container">
+      <%= yield %>
+    </div>
+
+
+
+
+
+  </body>
+</html>

@@ -51,16 +51,17 @@ class AwsInfo
           server_hash = Hash.new
 
           #grab necessary attrs
-          server_hash[:hash]        = server
-          server_hash[:name]        = server.tags["Name"]
-          server_hash[:environment] = server.tags["environment"] ||= "no tag yet"
+          server_hash[:hash]         = server
+          server_hash[:name]         = server.tags["Name"]
+          server_hash[:environment]  = server.tags["environment"] ||= "no tag yet"
           server_hash[:bootstrapped] = server.tags["bootstrapped"]
-          server_hash[:apps]        = server.tags["role"] ||= "no apps yet"
-          server_hash[:id]          = server.id.to_s
-          server_hash[:private_ip]  = server.private_ip_address.to_s
-          server_hash[:flavor]      = server.flavor_id.to_s
-          server_hash[:az]          = server.availability_zone
+          server_hash[:apps]         = server.tags["role"] ||= "no apps yet"
+          server_hash[:id]           = server.id.to_s
+          server_hash[:private_ip]   = server.private_ip_address.to_s
+          server_hash[:flavor]       = server.flavor_id.to_s
+          server_hash[:az]           = server.availability_zone
           server_hash[:ec2_state]       = server.state
+          server_hash[:aws_created_at]  = server.created_at
 
           # append our hash of server attrs and return the server_list
           server_list << server_hash
@@ -96,7 +97,8 @@ class AwsInfo
           ec2_state: server[:ec2_state],
           ec2_private_ip: server[:private_ip],
           ec2_availability_zone: server[:az],
-          iso_client_ip: server[:private_ip]
+          iso_client_ip: server[:private_ip],
+          aws_created_at: server[:aws_created_at]
         )
         node_data.save
 

@@ -17,6 +17,7 @@
       <th>Events</th>
       <th>Stashes</th>
       <th>Sensu Alive</th>
+      <th>AWS Age</th>
     </tr>
   </thead>
   <tbody id="fbody">
@@ -30,7 +31,13 @@
         <td><%= node.sensu_stashes_count %></td>
         <% sensu_time=time_since(node.sensu_timestamp.to_i) %>
         <td><%= sensu_time %></td>
-        <% ec2_status=ec2_running(node.ec2_state) %>
+
+        <!-- <% ec2_status=ec2_running(node.ec2_state) %> -->
+        <!-- <td><%= ec2_status %></td> -->
+
+        <% aws_age=check_aws_age(node.aws_created_at) %>
+        <td><%= aws_age %></td>
+
       </tr>
     <% end %>
   </tbody>

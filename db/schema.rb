@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150427152231) do
+ActiveRecord::Schema.define(version: 20151119153727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20150427152231) do
     t.text     "xen_name"
     t.text     "xen_power_state"
     t.text     "xen_last_shutdown_time"
+    t.text     "aws_created_at"
   end
 
   add_index "nodes", ["ec2_private_ip"], name: "index_nodes_on_ec2_private_ip", using: :btree
